@@ -33,7 +33,7 @@ class SIO_Generic_Object(object):
 
 class ScaleIO_System(SIO_Generic_Object):
     """ Represents one ScaleIO cluster/installation as a class object  - Owns other classes that represents differenct ScaleIO components """
-    
+
     def __init__(self,
         id=None,
         name=None,
@@ -41,28 +41,28 @@ class ScaleIO_System(SIO_Generic_Object):
         primaryMdmActorIpList = None, #List
         primaryMdmActorPort = None,
         secondaryMdmActorIpList = None, #List
-        secondaryMdmActorPort = None, 
+        secondaryMdmActorPort = None,
         tiebreakerMdmIpList = None,  #List
         tiebreakerMdmPort = None, # This one is defined in ScaleIO 1.30 API, but seem not present in 1.31??
         tiebreakerMdmActorPort = None,
         mdmMode = None, #Single or Cluster
         mdmClusterState = None, # NotClustered or ClusteredNormal or ClusteredDegraded or ClusteredTiebreakerDown or ClusteredDegradedTiebreakerDown
         mdmManagementIpList = None, # List
-        mdmManagementPort = None, 
+        mdmManagementPort = None,
         capacityAlertHighThresholdPercent = None,
         capacityAlertCriticalThresholdPercent = None,
-        installId = None, 
+        installId = None,
         swid = None, # This one seem not to return anything. Its define din 1.30. What about 1.31????
-        daysInstalled = None, 
+        daysInstalled = None,
         maxCapacityInGb = None,
-        capacityTimeLeftInDays = None, 
-        enterpriseFeaturesEnabled = None, 
+        capacityTimeLeftInDays = None,
+        enterpriseFeaturesEnabled = None,
         defaultIsVolumeObfuscated = None,
-        isInitialLicense = None, 
+        isInitialLicense = None,
         restrictedSdcModeEnabled = None,
         remoteReadOnlyLimitState = None,
         links = None
-  
+
     ):
         self.id=id
         self.name=None
@@ -72,21 +72,21 @@ class ScaleIO_System(SIO_Generic_Object):
             self.primary_mdm_actor_ip_list.append(ip)
         self.primary_mdm_actor_port = primaryMdmActorPort
         self.secondary_mdm_actor_ip_list = secondaryMdmActorIpList
-        self.secondary_mdm_actor_port = secondaryMdmActorPort 
+        self.secondary_mdm_actor_port = secondaryMdmActorPort
         self.tiebreaker_mdm_ip_list = tiebreakerMdmIpList
         self.tiebreaker_mdm_port = tiebreakerMdmPort
         self.tiebreaker_mdm_actor_port = tiebreakerMdmPort
         self.mdm_mode = mdmMode
         self.mdm_cluster_state = mdmClusterState
         self.mdm_management_ip_list = mdmManagementIpList
-        self.mdm_management_port = mdmManagementPort 
+        self.mdm_management_port = mdmManagementPort
         self.capacity_alert_high_threshold_percent = capacityAlertHighThresholdPercent
         self.capacity_alert_critical_threshold_percent = capacityAlertCriticalThresholdPercent
         self.install_id = installId
-        self.swid = swid 
-        self.days_installed = daysInstalled 
+        self.swid = swid
+        self.days_installed = daysInstalled
         self.max_capacity_in_gb = maxCapacityInGb
-        self.capacity_time_left_in_days = capacityTimeLeftInDays 
+        self.capacity_time_left_in_days = capacityTimeLeftInDays
         self.enterprise_features_enabled = enterpriseFeaturesEnabled
         self.default_is_volume_obfuscated = defaultIsVolumeObfuscated
         self.is_initial_license = isInitialLicense
@@ -94,8 +94,8 @@ class ScaleIO_System(SIO_Generic_Object):
         self.remote_readonly_limit_state = remoteReadOnlyLimitState
         self.links = []
         for link in links:
-            self.links.append(Link(link['href'],link['rel']))        
-        
+            self.links.append(Link(link['href'],link['rel']))
+
 
     @staticmethod
     def from_dict(dict):
@@ -104,10 +104,10 @@ class ScaleIO_System(SIO_Generic_Object):
         JSON response from the server.
         """
         return ScaleIO_System(**dict)
-    
+
 class ScaleIO_Storage_Pool(SIO_Generic_Object):
     """ ScaleIO Storage Pool Class representation """
-    
+
     def __init__(self,
         id=None,
         name=None,
@@ -116,24 +116,24 @@ class ScaleIO_Storage_Pool(SIO_Generic_Object):
         rebuildEnabled=None,
         rebalanceEnabled=None,
         rebuildIoPriorityPolicy=None, #unlimited or limitNumOfConcurrentIos or favorAppIos or dynamicBwThrottling
-        rebalanceIoPriorityPolicy=None, 
-        rebuildIoPriorityNumOfConcurrentIosPerDevice=None, 
-        rebalanceIoPriorityNumOfConcurrentIosPerDevice=None, 
-        rebuildIoPriorityBwLimitPerDeviceInKbps=None, 
+        rebalanceIoPriorityPolicy=None,
+        rebuildIoPriorityNumOfConcurrentIosPerDevice=None,
+        rebalanceIoPriorityNumOfConcurrentIosPerDevice=None,
+        rebuildIoPriorityBwLimitPerDeviceInKbps=None,
         rebalanceIoPriorityBwLimitPerDeviceInKbps=None,
-        rebuildIoPriorityAppIopsPerDeviceThreshold=None, 
+        rebuildIoPriorityAppIopsPerDeviceThreshold=None,
         rebalanceIoPriorityAppIopsPerDeviceThreshold=None,
-        rebuildIoPriorityAppBwPerDeviceThresholdInKbps=None, 
+        rebuildIoPriorityAppBwPerDeviceThresholdInKbps=None,
         rebalanceIoPriorityAppBwPerDeviceThresholdInKbps=None,
         rebuildIoPriorityQuietPeriodInMsec=None,
         rebalanceIoPriorityQuietPeriodInMsec=None,
         numOfParallelRebuildRebalanceJobsPerDevice=None,
-        protectionDomainId=None, 
+        protectionDomainId=None,
         zeroPaddingEnabled=None,
-        useRmcache=None, 
+        useRmcache=None,
         rmcacheWriteHandlingMode=None, #Passthrough or Cached
         # v1.32 specific
-        backgroundScannerMode = None, 
+        backgroundScannerMode = None,
         backgroundScannerBWLimitKBps = None
     ):
         self.id=id
@@ -146,20 +146,20 @@ class ScaleIO_Storage_Pool(SIO_Generic_Object):
         self.rebalance_enabled=rebalanceEnabled
         self.revuild_io_prioroti_policy=rebuildIoPriorityPolicy #unlimited or limitNumOfConcurrentIos or favorAppIos or dynamicBwThrottling
         self.rebalance_prioritiy_policy=rebalanceIoPriorityPolicy
-        self.rebuild_io_prioroity_num_of_concurrent_ios_per_device=rebuildIoPriorityNumOfConcurrentIosPerDevice 
-        self.rebalance_io_priority_num_of_concurrent_ios_per_device=rebalanceIoPriorityNumOfConcurrentIosPerDevice 
-        self.revuild_io_priority_bw_limits_per_device_in_kbps=rebuildIoPriorityBwLimitPerDeviceInKbps 
+        self.rebuild_io_prioroity_num_of_concurrent_ios_per_device=rebuildIoPriorityNumOfConcurrentIosPerDevice
+        self.rebalance_io_priority_num_of_concurrent_ios_per_device=rebalanceIoPriorityNumOfConcurrentIosPerDevice
+        self.revuild_io_priority_bw_limits_per_device_in_kbps=rebuildIoPriorityBwLimitPerDeviceInKbps
         self.rebalance_io_priority_bw_limit_per_device_in_kbps=rebalanceIoPriorityBwLimitPerDeviceInKbps
-        self.rebuild_io_priority_app_iops_per_device_threshold=rebuildIoPriorityAppIopsPerDeviceThreshold 
+        self.rebuild_io_priority_app_iops_per_device_threshold=rebuildIoPriorityAppIopsPerDeviceThreshold
         self.rebalance_io_priority_app_iops_per_devicE_threshold=rebalanceIoPriorityAppIopsPerDeviceThreshold
-        self.rebuild_io_priority_app_bw_per_device_threshold_in_kbps=rebuildIoPriorityAppBwPerDeviceThresholdInKbps 
+        self.rebuild_io_priority_app_bw_per_device_threshold_in_kbps=rebuildIoPriorityAppBwPerDeviceThresholdInKbps
         self.rebalance_priority_apps_bw_per_device_threshold_in_kbps=rebalanceIoPriorityAppBwPerDeviceThresholdInKbps
         self.rebuild_io_priority_quite_period_in_msec=rebuildIoPriorityQuietPeriodInMsec
         self.reabalance_io_priority_quiet_period_in_msec=rebalanceIoPriorityQuietPeriodInMsec
         self.num_of_parallel_rebuild_rebalance_job_per_device=numOfParallelRebuildRebalanceJobsPerDevice
-        self.protection_domain_id=protectionDomainId 
+        self.protection_domain_id=protectionDomainId
         self.zero_padding_enabled=zeroPaddingEnabled
-        self.use_rm_cache=useRmcache 
+        self.use_rm_cache=useRmcache
         self.rmcache_write_handling_mode=rmcacheWriteHandlingMode
         # v1.32 specific
         self.backgroundScanneMode = backgroundScannerMode
@@ -174,7 +174,7 @@ class ScaleIO_Storage_Pool(SIO_Generic_Object):
 
 class ScaleIO_Protection_Domain(SIO_Generic_Object):
     """ ScaleIO Protection Domain Class representation """
-    
+
     def __init__(self,
         id=None,
         links=None,
@@ -213,7 +213,7 @@ class ScaleIO_Protection_Domain(SIO_Generic_Object):
 
 class ScaleIO_Volume(SIO_Generic_Object):
     """ ScaleIO Volume Class representation """
-    
+
     def __init__(self,
                  ancestorVolumeId=None,
                  consistencyGroupId=None,
@@ -261,7 +261,7 @@ class ScaleIO_Volume(SIO_Generic_Object):
 
 class ScaleIO_SDC(SIO_Generic_Object):
     """ ScaleIO SDC Class representation """
-    
+
     def __init__(self,
                  id=None,
                  links=None,
@@ -295,7 +295,7 @@ class ScaleIO_SDC(SIO_Generic_Object):
 
 class ScaleIO_SDS(SIO_Generic_Object):
     """ ScaleIO SDS Class representation """
-    
+
     def __init__(self,
                  drlMode=None,
                  ipList=None,
@@ -344,12 +344,12 @@ class ScaleIO_SDS(SIO_Generic_Object):
         JSON response from the server.
         """
         return ScaleIO_SDS(**dict)
- 
+
 class ScaleIO_Vtree(SIO_Generic_Object):
     """ ScaleIO VTree Class repreentation
         For every Volume created there alway at least one VTree
     """
-    
+
     def __init__(self,
         id=None,
         name=None,
@@ -364,7 +364,7 @@ class ScaleIO_Vtree(SIO_Generic_Object):
         self.links = []
         for link in links:
             self.links.append(Link(link['href'],link['rel']))
-            
+
     @staticmethod
     def from_dict(dict):
         """
@@ -375,7 +375,7 @@ class ScaleIO_Vtree(SIO_Generic_Object):
 
 class ScaleIO_Fault_Set(SIO_Generic_Object):
     """ ScaleIO Faultset Class repreentation """
-    
+
     def __init__(self,
         id=None,
         name=None,
@@ -397,13 +397,13 @@ class ScaleIO_Fault_Set(SIO_Generic_Object):
         JSON response from the server.
         """
         return ScaleIO_Fault_Set(**dict)
-    
+
 class SnapshotSpecification(SIO_Generic_Object):
     """
     Input: list of SIO Snapshot definitions
             For example: { "snapshotDefs": [ {" volumeId":"2dd9132300000000", "snapshotName":"000_snap1"}, {"volumeId":"2dd9132300000004", "snapshotName":"004_snap1" }]}
     If adding more than one Volume to a Snapshot definition it will autoamtically be trated as a consistency group
-    
+
     Return:
         volumeIdList snapshotGroupId
         for example:
@@ -411,7 +411,7 @@ class SnapshotSpecification(SIO_Generic_Object):
     """
     def __init__(self):
         self._snapshotList = []
-    
+
     def addVolume(self, volObj, snapName=None):
         if snapName is None:
             self._snapshotList.append({"volumeId": volObj.id, "snapshotName": volObj.name + "snapshot"})
@@ -423,14 +423,14 @@ class SnapshotSpecification(SIO_Generic_Object):
             if self._snapshotList[i]['volumeId'] == volObj.id:
                 del self._snapshotList[i]
                 break
-    
+
     def __to_dict__(self):
         return {"snapshotDefs" : self._snapshotList}
 
 class ScaleIO_Statistics(SIO_Generic_Object):
     """ Represents one ScaleIO cluster/installation as a class object """
-    
-    def __init__(self,	
+
+    def __init__(self,
 				primaryReadFromDevBwc = None,
 				numOfStoragePools = None,
 				protectedCapacityInKb = None,
@@ -751,14 +751,14 @@ class ScaleIO(SIO_Generic_Object):
 			#response = self._session.get("{}/{}".format(self._api_url, uri)).json()
 			response = self._session.get(url)
 			if response.status_code == requests.codes.ok:
-				self.logger.debug('_do_get() - HTTP response OK, data: %s', response.text)                
+				self.logger.debug('_do_get() - HTTP response OK, data: %s', response.text)
 				return response
 			else:
 				self.logger.error('_do_get() - HTTP response error: %s', response.status_code)
-				self.logger.error('_do_get() - HTTP response error, data: %s', response.text)                
+				self.logger.error('_do_get() - HTTP response error, data: %s', response.text)
 				raise RuntimeError("_do_get() - HTTP response error" + response.status_code)
 		except Exception as e:
-			self.logger.error("_do_get() - Unhandled Error Occurred: %s" % str(e)) 
+			self.logger.error("_do_get() - Unhandled Error Occurred: %s" % str(e))
 			raise RuntimeError("_do_get() - Communication error with ScaleIO gateway")
 		return response
 
@@ -774,14 +774,14 @@ class ScaleIO(SIO_Generic_Object):
 			response = self._session.post(url, headers=scaleioapi_post_headers, **kwargs)
 			self.logger.debug('_do_post() - HTTP response: %s', response.text)
 			if response.status_code == requests.codes.ok:
-				self.logger.debug('_do_post() - HTTP response OK, data: %s', response.text)                
+				self.logger.debug('_do_post() - HTTP response OK, data: %s', response.text)
 				return response
 			else:
 				self.logger.error('_do_post() - HTTP response error: %s', response.status_code)
-				self.logger.error('_do_post() - HTTP response error, data: %s', response.text)                
+				self.logger.error('_do_post() - HTTP response error, data: %s', response.text)
 				raise RuntimeError("_do_post() - HTTP response error " + str(response.status_code))
 		except Exception as e:
-			self.logger.error("_do_post() - Unhandled Error Occurred: %s" % str(e)) 
+			self.logger.error("_do_post() - Unhandled Error Occurred: %s" % str(e))
 			raise RuntimeError("_do_post() - Communication error with ScaleIO gateway")
 		return response
 
@@ -807,7 +807,7 @@ class ScaleIO(SIO_Generic_Object):
 		:rtype: list
 		"""
 		self._check_login()
-		response = self._do_get("{}/{}".format(self._api_url, "types/StoragePool/instances")).json() 
+		response = self._do_get("{}/{}".format(self._api_url, "types/StoragePool/instances")).json()
 		all_storage_pools = []
 		for storage_pool_object in response:
 			all_storage_pools.append(ScaleIO_Storage_Pool.from_dict(storage_pool_object))
@@ -821,7 +821,7 @@ class ScaleIO(SIO_Generic_Object):
 		:rtype: list
 		"""
 		self._check_login()
-		response = self._do_get("{}/{}".format(self._api_url, "types/Sdc/instances")).json()       
+		response = self._do_get("{}/{}".format(self._api_url, "types/Sdc/instances")).json()
 		all_sdc = []
 		for sdc in response:
 			all_sdc.append(
@@ -931,14 +931,14 @@ class ScaleIO(SIO_Generic_Object):
 		:return: a `list` of all the `System` Statistics known to the cluster.
 		:rtype: list
 		"""
-		self._check_login()    
+		self._check_login()
 		response = self._do_get("{}/{}{}/{}".format(self._api_url, "instances/System::", str(self.get_system_id()), "relationships/Statistics")).json()
 		return response
 		all_stats = []
 		#for statistic in response:
 		#	all_stats.append(ScaleIO_Statistics.from_dict(str(statistic)))
 		#return all_stats
-	
+
 	def get_system_objects(self):
 		return self.system
 
@@ -951,9 +951,9 @@ class ScaleIO(SIO_Generic_Object):
 		rtype: string
 		"""
 		# API version scheme:
-		# 1.0 = 
-		# 1.1 = 
-		return self._api_version 
+		# 1.0 =
+		# 1.1 =
+		return self._api_version
 
 	def get_sds_in_faultset(self, faultSetObj):
 		"""
@@ -968,8 +968,8 @@ class ScaleIO(SIO_Generic_Object):
 			all_sds.append(
 				ScaleIO_SDS.from_dict(pd)
 			)
-		return all_sds        
-		
+		return all_sds
+
 	def get_sds_by_name(self,name):
 		"""
 		Get ScaleIO SDS object by its name
@@ -1018,14 +1018,14 @@ class ScaleIO(SIO_Generic_Object):
 		:rtype: SDS object
 		"""
 		if self.is_ip_addr(ip):
-			for sds in self.sds:
+			for sds in ScaleIO_SDS:
 				for sdsIp in sds.ipList:
 					if sdsIp == ip:
 						return sds
 			raise KeyError("SDS with that IP not found")
 		else:
 			raise ValueError("Malformed IP address - get_sds_by_ip()")
-		
+
 	def get_sds_by_id(self,id):
 		"""
 		Get ScaleIO SDS object by its id
@@ -1125,7 +1125,7 @@ class ScaleIO(SIO_Generic_Object):
 			all_volumes.append(
 				ScaleIO_Volume.from_dict(sdc_volume)
 			)
-		return all_volumes        
+		return all_volumes
 
 	def get_pd_by_name(self, name):
 		"""
@@ -1242,14 +1242,14 @@ class ScaleIO(SIO_Generic_Object):
 	def create_protection_domain(self, pdObj, **kwargs):
 		# TODO:
 		# Check if object parameters are the correct ones
-		self._check_login()    
+		self._check_login()
 		response = self._do_post("{}/{}".format(self._api_url, "types/Volume/instances"), json=pdObj.__to_dict__()())
 		return response
 
 	def delete_potection_domain(self, pdObj):
 		"""
 		:param pdObj: ID of ProtectionDomain
-		
+
 		type: POST
 		Required:
 			Protection Domain Object
@@ -1262,7 +1262,7 @@ class ScaleIO(SIO_Generic_Object):
 	def create_snapshot(self, systemId, snapshotSpecificationObject):
 		"""
 		Create snapshot for list of volumes
-		:param systemID: Cluster ID 
+		:param systemID: Cluster ID
 		:param snapshotSpecificationObject: Of class SnapshotSpecification
 		:rtype: SnapshotGroupId
 		"""
@@ -1272,20 +1272,20 @@ class ScaleIO(SIO_Generic_Object):
 		#except:
 		#    raise RuntimeError("create_snapshot_by_system_id() - Error communicating with ScaleIO gateway")
 		return response
-		
+
 	def delete_snapshot(self, systemId, snapshotGroupId):
 		"""
 		:param systemId: ID of Cluster
 		:param snapshotGroupId: ID of snapshot group ID to be removed
-		
-		
+
+
 		/api/instances/System::{id}/action/removeConsistencyGroupSnapshots
 		type: POST
 		Required:
 			snapGroupId
 		Return:
 			numberOfVolumes - number of volumes that were removed because of this operation
-		
+
 		"""
 		#try:
 		consistencyGroupIdDict = {'snapGroupId':snapshotGroupId}
@@ -1298,7 +1298,7 @@ class ScaleIO(SIO_Generic_Object):
 	#def create_volume(self, volName, volSizeInMb, pdObj, thinProvision=True, **kwargs): # Worked in v1.31 but not in v1.32
 	def create_volume(self, volName, volSizeInMb, pdObj, spObj, thinProvision=True, **kwargs): #v1.32 require storagePoolId when creating a volume
 		# Check if object parameters are the correct ones, otherwise throw error
-		self._check_login()    
+		self._check_login()
 		if thinProvision:
 			volType = 'ThinProvisioned'
 		else:
@@ -1334,7 +1334,7 @@ class ScaleIO(SIO_Generic_Object):
 		if current_vol.size_kb > (sizeInGb * bsize * bsize):
 			raise RuntimeError(
 				"resize_volume() - New size needs to be bigger than: %d KBs" % current_vol.size_kb)
-		
+
 		resizeDict = { 'sizeInGB' : str(sizeInGb) }
 		response = self._do_post("{}/{}{}/{}".format(
 			self._api_url, "instances/Volume::", volumeObj.id, 'action/setVolumeSize'), json=resizeDict)
@@ -1406,7 +1406,7 @@ class ScaleIO(SIO_Generic_Object):
 							self.unmap_volume_from_sdc(volObj, enableMapAllSdcs=False)
 						except:
 							raise RuntimeError("delete_volume() - enableMapAllSdcs error")
-					else: # All SDS not enabled so loop through all mapped SDCs of volume and remove one by one                        
+					else: # All SDS not enabled so loop through all mapped SDCs of volume and remove one by one
 						for sdc in self.get_sdc_for_volume(volObj):
 							try:
 								self.unmap_volume_from_sdc(volObj, self.get_sdc_by_id(sdc['sdcId']))
@@ -1435,7 +1435,7 @@ class ScaleIO(SIO_Generic_Object):
 		# UNSURE IF THIS IS CORRECT WAY TO SET SDS NAME
 		self._check_login()
 		sdsNameDict = {'sdsName': name}
-		response = self._do_post("{}/{}{}/{}".format(self._api_url, "instances/Sds::", sdcObj.id, 'action/setSdsName'), json=sdsNameDict)    
+		response = self._do_post("{}/{}{}/{}".format(self._api_url, "instances/Sds::", sdcObj.id, 'action/setSdsName'), json=sdsNameDict)
 		return response
 
 	def set_sdc_name(self, name, sdcObj):
@@ -1450,7 +1450,7 @@ class ScaleIO(SIO_Generic_Object):
 		# Check if object parameters are the correct ones, otherwise throw error
 		self._check_login()
 		sdcNameDict = {'sdcName': name}
-		response = self._do_post("{}/{}{}/{}".format(self._api_url, "instances/Sdc::", sdcObj.id, 'action/setSdcName'), json=sdcNameDict)    
+		response = self._do_post("{}/{}{}/{}".format(self._api_url, "instances/Sdc::", sdcObj.id, 'action/setSdcName'), json=sdcNameDict)
 		return response
 
 	def set_faultset_name(self, name, fsObj):
@@ -1465,11 +1465,11 @@ class ScaleIO(SIO_Generic_Object):
 		self._check_login()
 		faultSetNameDict = {'Name': name}
 		# This one is the most logical name comparing to other methods.
-		response = self._do_post("{}/{}{}/{}".format(self._api_url, "types/FaultSet::", fsObj.id, 'instances/action/setFaultSetName'), json=faultSetNameSdcDict)    
+		response = self._do_post("{}/{}{}/{}".format(self._api_url, "types/FaultSet::", fsObj.id, 'instances/action/setFaultSetName'), json=faultSetNameSdcDict)
 
 		# This is how its documened in REST API Chapter
-		#response = self._do_post("{}/{}{}/{}".format(self._api_url, "types/FaultSet::", fsObj.id, 'instances/action/setFaultSetName'), json=faultsetNameSdcDict)    
-		return response    
+		#response = self._do_post("{}/{}{}/{}".format(self._api_url, "types/FaultSet::", fsObj.id, 'instances/action/setFaultSetName'), json=faultsetNameSdcDict)
+		return response
 
 	def unregisterSdc(self, sdcObj):
 		"""
@@ -1482,13 +1482,13 @@ class ScaleIO(SIO_Generic_Object):
 		# Add code that unmap volume if mapped
 		self._check_login()
 		response = self._do_post("{}/{}{}/{}".format(self._api_url, "instances/Sdc::", sdcObj.id, 'action/removeSdc'), json={})
-		#response = self._do_post("{}/{}{}/{}".format(self._api_url, "instances/Sdc::", str(sdcObj.id), 'action/removeSdc'))    
+		#response = self._do_post("{}/{}{}/{}".format(self._api_url, "instances/Sdc::", str(sdcObj.id), 'action/removeSdc'))
 		return response
 
 	def registerSdc(self, sdcObj, **kwargs):
 		# Register existing SDS running SDS binary (need to be installed manually but not added to MDM)
-		# 
-		self._check_login()    
+		#
+		self._check_login()
 		#response = self._do_post("{}/{}".format(self._api_url, "types/Sdc/instances"), json=sdcObj.__to_dict__())
 		response = self._do_post("{}/{}".format(self._api_url, "types/Sdc/instances"), json=sdcObj)
 		return response
@@ -1501,8 +1501,8 @@ class ScaleIO(SIO_Generic_Object):
 		:rtype: Requests POST response object
 		"""
 		self._check_login()
-		response = self._do_post("{}/{}{}/{}".format(self._api_url, "instances/Sds::", sdsObj.id, 'action/removeSds'), json={})    
-		return response    
+		response = self._do_post("{}/{}{}/{}".format(self._api_url, "instances/Sds::", sdsObj.id, 'action/removeSds'), json={})
+		return response
 
 	# /api/types/Sds/instance s
 	def registerSds(self, sdsObj, **kwargs):
@@ -1513,9 +1513,9 @@ class ScaleIO(SIO_Generic_Object):
 		:rtype: Requests POST response object
 		"""
 		# Register existing SDS running SDS binary (need to be installed manually but not added to MDM)
-		# 
-		self._check_login()    
-		
+		#
+		self._check_login()
+
 		#response = self._do_post("{}/{}".format(self._api_url, "types/Sds/instances"), json=sdsObj.__to_dict__())
 		response = self._do_post("{}/{}".format(self._api_url, "types/Sds/instances"), json=sdsObj)
 		return response
@@ -1550,7 +1550,7 @@ class ScaleIO(SIO_Generic_Object):
 				return int((1 + size_temp[0]) * 8192) # Always round to next 8GB increment
 		else:
 			return int(volsize)
-	
+
 
 if __name__ == "__main__":
     if len(sys.argv) == 1:
