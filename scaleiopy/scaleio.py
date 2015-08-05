@@ -1018,8 +1018,8 @@ class ScaleIO(SIO_Generic_Object):
 		:rtype: SDS object
 		"""
 		if self.is_ip_addr(ip):
-			for sds in ScaleIO_SDS:
-				for sdsIp in sds.ipList:
+			for sds in self.sds:
+				for sdsIp in sds.ip_list:
 					if sdsIp == ip:
 						return sds
 			raise KeyError("SDS with that IP not found")
