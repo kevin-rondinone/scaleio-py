@@ -34,19 +34,19 @@ class Im_Generic_Object(object):
 
     def __repr__(self):
         return self.__str__()
-    
+
     def to_JSON(self):
         return json.dumps(self, default=lambda o: o.__dict__)
 
     def to_DICT(self):
         return self.__dict__
-    
+
 class ScaleIO_Node_Object(Im_Generic_Object):
     """
     Do not use. Will be the common denominator for ScaleIO configuration nodes.
     All config object should inherit this base
     """
-    
+
     def __init__(self,
         domain=None,
         liaPassword=None,
@@ -66,7 +66,7 @@ class ScaleIO_Node_Object(Im_Generic_Object):
         self.ostype=ostype
         self.password=password
         self.userName=userName
-    
+
     @staticmethod
     def from_dict(dict):
         """
@@ -79,7 +79,7 @@ class Primary_Mdm_Object(Im_Generic_Object):
     """
     Python object representation of a MDM (Primary and Secondary look the same configuration wise.
     """
-    
+
     def __init__(self,
         node=None,
         nodeInfo=None,
@@ -93,7 +93,7 @@ class Primary_Mdm_Object(Im_Generic_Object):
                 self.managementIPs.append(mgmtIP)
         self.node=ScaleIO_Node_Object.from_dict(node)
         self.nodeInfo=nodeInfo
-        
+
     @staticmethod
     def from_dict(dict):
         """
@@ -106,7 +106,7 @@ class Mdm_Object(Im_Generic_Object):
     """
     Python object representation of a MDM (primary or secondary look eactly the same configuration wise).
     """
-    
+
     def __init__(self,
         node=None,
         nodeInfo=None,
@@ -123,7 +123,7 @@ class Mdm_Object(Im_Generic_Object):
         if mdmIPs:
             for mdmIP in mdmIPs:
                 self.mdmIPs.append(mdmIP)
-                
+
     @staticmethod
     def from_dict(dict):
         """
@@ -136,7 +136,7 @@ class Tb_Object(Im_Generic_Object):
     """
     Python object representation of a TB.
     """
-    
+
     def __init__(self,
         node=None,
         nodeInfo=None,
@@ -148,7 +148,7 @@ class Tb_Object(Im_Generic_Object):
         if tbIPs:
             for tbIp in tbIPs:
                 self.tbIPs.append(tbIp)
-        
+
     @staticmethod
     def from_dict(dict):
         """
@@ -163,7 +163,7 @@ class Sdc_Object(Im_Generic_Object):
     """
     Python object representation of a MDM (primary or secondary look eactly the same configuration wise).
     """
-    
+
     def __init__(self,
         node=None,
         nodeInfo=None,
@@ -172,7 +172,7 @@ class Sdc_Object(Im_Generic_Object):
         self.node=ScaleIO_Node_Object.from_dict(node)
         self.nodeInfo=nodeInfo
         self.splitterRpaIp=splitterRpaIp
-        
+
     @staticmethod
     def from_dict(dict):
         """
@@ -186,7 +186,7 @@ class Sds_Device_Object(Im_Generic_Object):
     Python object representation of a SDS Device
 
     """
-    
+
     def __init__(self,
         devicePath=None,
         storagePool=None,
@@ -195,7 +195,7 @@ class Sds_Device_Object(Im_Generic_Object):
         self.devicePath=devicePath
         self.storagePool=storagePool
         self.deviceName=deviceName
-    
+
     @staticmethod
     def from_dict(dict):
         """
@@ -208,9 +208,9 @@ class Sds_Object(Im_Generic_Object):
     """
     Python object representation of a SDS.
     To add a SDS to a faultset this is where its done. SDSs cannot be added to FaultSets after they have been added to protectiondomain. API wise they can be removed and re added (not sure how re-add is done though)
-    
+
     """
-    
+
     def __init__(self,
         node=None,
         nodeInfo=None,
@@ -246,17 +246,17 @@ class Sds_Object(Im_Generic_Object):
                 self.devices.append(Sds_Device_Object.from_dict(device))
         self.optimized=optimized
         self.port=port
-    
+
     def addDevice(self, devicePath, storagePool, deviceName):
         #print "Add Device:"
         device_dict = {'devicePath': devicePath, 'storagePool': storagePool, 'deviceName': deviceName}
         #pprint (device_dict) #(Sds_Device_Object(devicePath, storagePool, deviceName).to_JSON())
         self.devices.append(Sds_Device_Object.from_dict(device_dict))
-        
+
     def removeDevice(devObject):
         pass
-    
-        
+
+
     @staticmethod
     def from_dict(dict):
         """
@@ -269,7 +269,7 @@ class Call_Home_Configuration_Object(Im_Generic_Object):
     """
     Python object representation of a MDM (primary or secondary look eactly the same configuration wise).
     """
-    
+
     def __init__(self,
         emailFrom=None,
         mdmUsername=None,
@@ -307,7 +307,7 @@ class Remote_Syslog_Configuration_Object(Im_Generic_Object):
     """
     Python object representation of a Remote Syslog Logging.
     """
-    
+
     def __init__(self,
         ip=None,
         port=None,
@@ -324,12 +324,12 @@ class Remote_Syslog_Configuration_Object(Im_Generic_Object):
         JSON response from the server.
         """
         return Remote_Syslog_Configuration_Object(**dict)
-    
+
 class ScaleIO_System_Object(Im_Generic_Object):
     """
     Root configuration object
     """
-    
+
     def __init__(self,
         installationId=None,
         mdmIPs=None,
@@ -343,7 +343,7 @@ class ScaleIO_System_Object(Im_Generic_Object):
         sdcList=None,
         callHomeConfiguration=None,
         remoteSyslogConfiguration=None
-        
+
     ):
         self.installationId=installationId
         self.mdmIPs = []
@@ -372,45 +372,45 @@ class ScaleIO_System_Object(Im_Generic_Object):
             self.remoteSyslogConfiguration = remoteSyslogConfiguration
     def setLiaPassword(self, value):
         self.liaPassword = value
-        
+
     def setMdmPassword(self, value):
         self.mdmPassword = value
-    
+
     def addSds(self, sdsObj):
         self.sdsList.append(sdsObj)
-    
+
     def removeSds(self, sdsObj):
         pass
-    
+
     def addSdc(self, sdcObj):
         pass
-    
+
     def removeSdc(self, sdcObj):
         pass
-    
+
     def addCallHomeConfiguration(self, callhomeConfObj):
         self.callHomeConfiguration = callhomeConfObj.to_JSON()
-    
+
     def removeCallHomeConfiguration(self):
         self.callHomeConfiguration = None
-    
+
     def addSyslogConfiguration(self, syslogConfObj):
         self.remoteSyslogConfiguration = callhomeConfObj.to_JSON()
-    
+
     def removeSyslogConfiguration(self):
         self.remoteSyslogConfiguration = None
-    
+
     def addPrimaryMdm(self, mdmObj):
         pass
-    
+
     def addSecondaryMdm(self, mdmObj):
         pass
-    
+
     def addTb(self, tbObj):
         pass
-    
-    
-    
+
+
+
     @staticmethod
     def from_dict(dict):
         """
@@ -418,7 +418,7 @@ class ScaleIO_System_Object(Im_Generic_Object):
         JSON response from the server.
         """
         return ScaleIO_System_Object(**dict)
-    
+
 
 
 if __name__ == "__main__":

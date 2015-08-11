@@ -934,9 +934,9 @@ class ScaleIO(SIO_Generic_Object):
 		self._check_login()
 		response = self._do_get("{}/{}{}/{}".format(self._api_url, "instances/System::", str(self.get_system_id()), "relationships/Statistics")).json()
 		return response
-		all_stats = []
+		#all_stats = []
 		#for statistic in response:
-		#	all_stats.append(ScaleIO_Statistics.from_dict(str(statistic)))
+		#	all_stats.append(ScaleIO_Statistics.from_dict(statistic))
 		#return all_stats
 
 	def get_system_objects(self):
